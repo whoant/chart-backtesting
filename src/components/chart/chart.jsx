@@ -13,11 +13,11 @@ Chart.defaultProps = {
   orders: []
 };
 
-function Chart({ prices, orders }) {
+function Chart({ prices, orders, name }) {
   const chart = useRef()
 
   useEffect(() => {
-    chart.current = init('k-line');
+    chart.current = init(name);
     chart.current?.createIndicator('MA', false, { id: 'candle_pane' });
     chart.current?.createIndicator('EMA', false, { id: 'candle_pane' });
     orders.forEach((item, index) => {
@@ -71,14 +71,14 @@ function Chart({ prices, orders }) {
     chart.current?.applyNewData(prices);
 
     return () => {
-      dispose('k-line')
+      dispose(name)
     }
   }, [prices])
 
 
   return (<div
     className="k-line-chart-container">
-    <div id="k-line" className="k-line-chart"/>
+    <div id={name} className="k-line-chart"/>
     <div className="k-line-chart-menu-container">
       {/*<button*/}
       {/*    onClick={() => {*/}

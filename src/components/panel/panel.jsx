@@ -1,13 +1,13 @@
 import { Col, Row } from 'react-bootstrap';
 import Chart from '../chart/chart';
 import OrderHistory from '../orderHistory/orderHistory';
-import Statistic from '../statistic/statistic';
 import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { getAll, getDetail } from '../../api/api';
 import dayjs from 'dayjs';
+import Statistic from '../statistic/statistic';
 
-const Panel = () => {
+const Panel = ({ isShowOrder, name }) => {
   const [labels, setLabels] = useState([]);
   const [versions, setVersions] = useState([]);
   const [currentId, setCurrentId] = useState('');
@@ -64,16 +64,29 @@ const Panel = () => {
     </Row>
     <Row>
       <Col>
-        <Chart prices={portfolio.prices} orders={portfolio.orders}/>
+        <Chart prices={portfolio.prices} orders={portfolio.orders} name={name}/>
       </Col>
     </Row>
     <Row>
-      <Col sm={9}>
-        <OrderHistory chartData={portfolio.orders}/>
-      </Col>
-      <Col sm={3}>
-        <Statistic backTestingData={portfolio}/>
-      </Col>
+      {
+        isShowOrder && (
+          <Col sm={9}>
+            <OrderHistory chartData={portfolio.orders}/>
+          </Col>)
+      }
+      {
+        isShowOrder && (<Col sm={3}>
+          <Statistic backTestingData={portfolio}/>
+        </Col>)
+      }
+      {
+        !isShowOrder && (
+          <Col>
+            <Statistic backTestingData={portfolio}/>
+          </Col>
+        )
+      }
+
     </Row>
   </div>
 };
