@@ -1,0 +1,11 @@
+version: '3.9'
+services:
+  app:
+    build:
+      dockerfile: dev.Dockerfile
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    environment:
+      - WATCHPACK_POLLING=true
