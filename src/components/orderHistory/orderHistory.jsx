@@ -22,7 +22,7 @@ function OrderHistory({ chartData }) {
 
   return <div>
     <h3>Orders history</h3>
-    <Table striped bordered hover>
+    <Table bordered>
       <thead>
       <tr>
         <th>#</th>

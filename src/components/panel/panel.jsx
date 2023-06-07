@@ -16,6 +16,11 @@ const Panel = ({ isShowOrder, name }) => {
   const fetchData = async() => {
     const { data } = await getAll();
     setLabels(data.keys)
+    if (currentId !== '') {
+      const currentLabel = data.keys.find(label => label.id === currentId);
+      console.log(currentLabel)
+      setVersions(Array.from(Array(Number(currentLabel.currentVersion)), (_, i) => i + 1));
+    }
   }
 
   useEffect(() => {
